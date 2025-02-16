@@ -1,5 +1,6 @@
 
 # KaggleGo
+
 Fall in Love with DeepSeek Hackathon Project
 
 This is a project for the Fall in Love with DeepSeek Hackathon. The project is built using the Camel framework, which is a framework for building large language models.
@@ -24,8 +25,8 @@ pip install streamlit
 ```
 
 ## Usage
-To run the project, use the following command:
 
+To run the project, use the following command:
 
 ```bash
 streamlit run KaggleGo_app.py
