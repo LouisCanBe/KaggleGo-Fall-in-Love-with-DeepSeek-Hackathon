@@ -10,11 +10,69 @@ from kaggleAPI_tool import kaggleApiTools
 import os
 from dotenv import load_dotenv
 
+
 # 加载环境变量
 load_dotenv(dotenv_path='.env')
-api_key = os.getenv('QWEN_API_KEY')
-os.environ["GOOGLE_API_KEY"] = os.getenv("GOOGLE_API_KEY")
-os.environ["SEARCH_ENGINE_ID"] = os.getenv("SEARCH_ENGINE_ID")
+QWEN_API_KEY = os.getenv('QWEN_API_KEY')
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+SEARCH_ENGINE_ID = os.getenv("SEARCH_ENGINE_ID")
+
+
+# Set page configuration
+st.set_page_config(page_title="KaggleGo Baseline Generater", layout="wide")
+st.title("KaggleGo!")
+st.subheader("CAMEL-AI RolePlaying Society Session with DeepSeek/Qwen & AIML API,Kaggle API")
+st.markdown("""
+This interactive AI demo simulates a **role-playing conversation** between two AI agents. 
+_demo version_
+**How it works:**
+1. Configure the session by providing roles and a task.
+2. Run multiple rounds of conversation between the AI agents.
+3. Get a final consolidated strategy using **DeepSeek using AIML API** .
+""")
+
+# # Streamlit界面设置
+# st.title("KaggleGo!") 
+# st.write("_demo version_")
+# st.subheader("RolePlaying() & KaggleAPI")
+
+# Sidebar: API Key Setup
+st.sidebar.header("🔑 API Key Setup")
+st.sidebar.markdown("Provide the necessary API keys:")
+# 一键填入API密钥
+if st.sidebar.button("一键填入试用密钥 / Fill Trial Keys"):
+    qwen_api_key = QWEN_API_KEY
+    google_api_key = GOOGLE_API_KEY
+    search_engine_id = SEARCH_ENGINE_ID
+else:
+    qwen_api_key = st.sidebar.text_input("Qwen API Key", type="password")
+    google_api_key = st.sidebar.text_input("Google API Key", type="password")
+    search_engine_id = st.sidebar.text_input("Search Engine ID", type="password")
+
+# 设置环境变量
+if google_api_key:
+    os.environ["GOOGLE_API_KEY"] = google_api_key
+if qwen_api_key:
+    os.environ["QWEN_API_KEY"] = qwen_api_key
+if search_engine_id:
+    os.environ["SEARCH_ENGINE_ID"] = search_engine_id
+
+# 检查 API 密钥是否设置
+if not google_api_key or not qwen_api_key or not search_engine_id:
+    st.sidebar.error("⚠️ All API keys are required to proceed.")
+    st.stop()
+st.sidebar.success("✅ API keys set successfully!")
+
+# 重置密钥功能
+if st.sidebar.button("重置密钥Reset Keys"):
+    qwen_api_key = ""
+    google_api_key = ""
+    search_engine_id = ""
+    os.environ["GOOGLE_API_KEY"] = ""
+    os.environ["QWEN_API_KEY"] = ""
+    os.environ["SEARCH_ENGINE_ID"] = ""
+    st.sidebar.success("✅ API keys have been reset!")
+
 
 # 定义工具包
 tools_list = [
@@ -34,8 +92,15 @@ model = ModelFactory.create(
     model_platform=ModelPlatformType.OPENAI_COMPATIBLE_MODEL,
     model_type="Qwen/Qwen2.5-72B-Instruct",
     url='https://api-inference.modelscope.cn/v1/',
-    api_key=api_key
+    api_key=os.getenv('QWEN_API_KEY')
 )
+# # 创建模型
+# model = ModelFactory.create(
+#     model_platform=ModelPlatformType.AIML,
+#     model_type="Qwen/Qwen2.5-72B-Instruct",
+#     url='https://api-inference.modelscope.cn/v1/',
+#     api_key=api_key
+# )
 
 # 设置角色扮演
 role_play_session = RolePlaying(
@@ -53,10 +118,7 @@ role_play_session = RolePlaying(
     output_language='中文'
 )
 
-# Streamlit界面设置
-st.title("KaggleGo!") 
-st.write("_demo version_")
-st.subheader("RolePlaying() & KaggleAPI")
+
 # 初始化消息列表
 messages = []
 
