@@ -33,6 +33,7 @@ streamlit run KaggleGo_app.py
 ```
 
 ## Demo picture:
+（to be updated）
 
 Taggle the button `KaggleGo!` to start the demo.
 
@@ -41,13 +42,19 @@ Taggle the button `KaggleGo!` to start the demo.
 
 ## Dev log
 
-![alt text](image.png)
-![alt text](image-1.png)
-![alt text](image-2.png)
-![alt text](image-3.png)
-![alt text](image-4.png)
-![alt text](image-5.png)
-![alt text](image-6.png)
-![alt text](image-7.png)
-![alt text](image-8.png)
-![alt text](image-9.png)
+![alt text](./img/image.png)
+![alt text](./img/image-1.png)
+![alt text](./img/image-2.png)
+![alt text](./img/image-3.png)
+![alt text](./img/image-4.png)
+![alt text](./img/image-5.png)
+![alt text](./img/image-6.png)
+![alt text](./img/image-7.png)
+![alt text](./img/image-8.png)
+![alt text](./img/image-9.png)
+
+## Todo list
+
+- [ ] 1. 使用critic_agent引入human用户协作 (Introduce human user collaboration using critic_agent)
+- [ ] 2. 实现KaggleGo的核心功能，包括数据获取、数据清洗、数据预处理、模型训练、模型评估、模型部署等 (Implement core functionalities of KaggleGo, including data acquisition, data cleaning, data preprocessing, model training, model evaluation, and model deployment)
+- [ ] 3. 实现一个简单的streamlit app，用于展示KaggleGo的功能 (Create a simple Streamlit app to showcase the features of KaggleGo)
