@@ -40,7 +40,8 @@ You can watch the demo video showcasing the features of KaggleGo below:
 
 [Demo Video 2 RuningOutput](demo-video/demo_output2025-02-18%2013-38-43.mp4)
 
-
+![dark](img/demo-darkcolor.gif)
+![light](img/demo-lightcolor.gif)
 ## Demo picture:
 （to be updated）
 
