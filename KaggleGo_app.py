@@ -29,7 +29,7 @@ _demo version_
 **How it works:**
 1. Configure the session by providing roles and a task.
 2. Run multiple rounds of conversation between the AI agents.
-3. Get a final consolidated strategy using **DeepSeek using AIML API** .
+3. Get a final consolidated strategy using **DeepSeek using AIML API/Qwen using MoadelScope** .
 """)
 
 # # Streamlit界面设置
