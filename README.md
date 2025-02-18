@@ -20,7 +20,7 @@ You can install the required packages using the following commands:
 pip install camel
 pip install "camel-ai[all]==0.2.19"#for all the dependencies
 pip install kaggle
-pip install streamlit
+pip install streamlit   # 安装最新版本
 
 ```
 
