@@ -11,11 +11,12 @@ import os
 from dotenv import load_dotenv
 
 
-# 加载环境变量
-load_dotenv(dotenv_path='.env')
-QWEN_API_KEY = os.getenv('QWEN_API_KEY')
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-SEARCH_ENGINE_ID = os.getenv("SEARCH_ENGINE_ID")
+# # 加载环境变量
+# load_dotenv(dotenv_path='.env')
+# QWEN_API_KEY = os.getenv('QWEN_API_KEY')
+# GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+# SEARCH_ENGINE_ID = os.getenv("SEARCH_ENGINE_ID")
+
 
 
 # Set page configuration
@@ -40,14 +41,40 @@ _demo version_
 st.sidebar.header("🔑 API Key Setup")
 st.sidebar.markdown("Provide the necessary API keys:")
 # 一键填入API密钥
-if st.sidebar.button("一键填入试用密钥 / Fill Trial Keys"):
-    qwen_api_key = QWEN_API_KEY
-    google_api_key = GOOGLE_API_KEY
-    search_engine_id = SEARCH_ENGINE_ID
-else:
-    qwen_api_key = st.sidebar.text_input("Qwen API Key", type="password")
-    google_api_key = st.sidebar.text_input("Google API Key", type="password")
-    search_engine_id = st.sidebar.text_input("Search Engine ID", type="password")
+# if not os.path.exists('.env'):
+#     st.sidebar.error("⚠️ 缺少 .env 文件，请确保该文件存在。")
+# else:
+#     if st.sidebar.button("一键填入试用密钥 / Fill Trial Keys"):
+#         qwen_api_key = QWEN_API_KEY
+#         google_api_key = GOOGLE_API_KEY
+#         search_engine_id = SEARCH_ENGINE_ID
+#         # # 调试信息
+#         st.write("Tiral_QWEN_API_KEY:", qwen_api_key)
+#         st.write("Trial_GOOGLE_API_KEY:", google_api_key)
+#         st.write("Trial_SEARCH_ENGINE_ID :", search_engine_id )
+#     else:
+    #     qwen_api_key = st.sidebar.text_input("Tiral_QWEN_API_KEY", type="password")
+    #     google_api_key = st.sidebar.text_input("Trial_GOOGLE_API_KEY", type="password")
+    #     search_engine_id = st.sidebar.text_input("Trial_SEARCH_ENGINE_ID", type="password")
+
+    # # 设置环境变量
+    # if google_api_key:
+    #     os.environ["GOOGLE_API_KEY"] = google_api_key
+    # if qwen_api_key:
+    #     os.environ["QWEN_API_KEY"] = qwen_api_key
+    # if search_engine_id:
+    #     os.environ["SEARCH_ENGINE_ID"] = search_engine_id
+qwen_api_key = st.sidebar.selectbox("请选择 QWEN API 密钥", options=["请在下方填写密钥", "9a05348c-6f77-4669-b81c-xxxx"], index=0)
+if qwen_api_key == "请在下方填写密钥":
+    qwen_api_key = st.sidebar.text_input("请输入您的 QWEN API 密钥", type="password")
+
+google_api_key = st.sidebar.selectbox("请选择 Google API 密钥", options=["请在下方填写密钥", "xxxxx"], index=0)
+if google_api_key == "请在下方填写密钥":
+    google_api_key = st.sidebar.text_input("请输入您的 Google API 密钥", type="password")
+
+search_engine_id = st.sidebar.selectbox("请选择搜索引擎 ID", options=["请在下方填写密钥", "xxxxx"], index=0)
+if search_engine_id == "请在下方填写密钥":
+    search_engine_id = st.sidebar.text_input("请输入您的搜索引擎 ID", type="password")
 
 # 设置环境变量
 if google_api_key:
@@ -92,7 +119,7 @@ model = ModelFactory.create(
     model_platform=ModelPlatformType.OPENAI_COMPATIBLE_MODEL,
     model_type="Qwen/Qwen2.5-72B-Instruct",
     url='https://api-inference.modelscope.cn/v1/',
-    api_key=os.getenv('QWEN_API_KEY')
+    api_key=qwen_api_key
 )
 # # 创建模型
 # model = ModelFactory.create(
@@ -104,7 +131,7 @@ model = ModelFactory.create(
 
 # 设置角色扮演
 role_play_session = RolePlaying(
-    assistant_role_name="api测试员",
+    assistant_role_name="api测试员，适当的时候用markdown表达结果，涉及比赛查询时根据比赛名字匹配正确的url结尾字段作为命令值",
     user_role_name="kaggle爱好者",
     assistant_agent_kwargs=dict(
         model=model,
@@ -139,6 +166,8 @@ st.write("task_prompt：kaggle public api 测试，"
          "只运行给定可用的工具，不运行其他工具。完成后输出执行过的命令")
 # 发送按钮
 if st.button("KaggleGo!"):
+    import time
+    start_time = time.time()  # 记录开始时间
     n = 0
     input_msg = role_play_session.init_chat()
     chat_turn_limit = 10
@@ -161,5 +190,9 @@ if st.button("KaggleGo!"):
         # 打印用户和助手的输出
         for message in messages:
             st.write(f"**{message['role']}**: {message['content']}")
+
+        # 显示运行时间
+        elapsed_time = time.time() - start_time
+        st.write(f"运行时间: {elapsed_time:.2f} 秒")
 
         input_msg = assistant_response.msg

@@ -32,6 +32,15 @@ To run the project, use the following command:
 streamlit run KaggleGo_app.py
 ```
 
+## Demo Video
+
+You can watch the demo video showcasing the features of KaggleGo below:
+
+[Demo Video 1 Setup](demo-video/video1.mp4)
+
+[Demo Video 2 RuningOutput](demo-video/demo_output2025-02-18%2013-38-43.mp4)
+
+
 ## Demo picture:
 （to be updated）
 
@@ -57,4 +66,5 @@ Taggle the button `KaggleGo!` to start the demo.
 
 - [ ] 1. 使用critic_agent引入human用户协作 (Introduce human user collaboration using critic_agent)
 - [ ] 2. 实现KaggleGo的核心功能，包括数据获取、数据清洗、数据预处理、模型训练、模型评估、模型部署等 (Implement core functionalities of KaggleGo, including data acquisition, data cleaning, data preprocessing, model training, model evaluation, and model deployment)
-- [ ] 3. 实现一个简单的streamlit app，用于展示KaggleGo的功能 (Create a simple Streamlit app to showcase the features of KaggleGo)
+- [x] 3. 实现一个简单的streamlit app，用于展示KaggleGo的功能 (Create a simple Streamlit app to showcase the features of KaggleGo)
+
