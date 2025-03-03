@@ -188,7 +188,7 @@ if st.button("KaggleGo!"):
 
         st.empty()
         # 打印用户和助手的输出
-        for message in messages:
+        for message in messages[-2:]:
             st.write(f"**{message['role']}**: {message['content']}")
 
         # 显示运行时间
