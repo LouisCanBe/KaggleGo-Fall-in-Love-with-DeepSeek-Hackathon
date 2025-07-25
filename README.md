@@ -5,6 +5,7 @@ Fall in Love with DeepSeek Hackathon Project
 
 This is a project for the Fall in Love with DeepSeek Hackathon. The project is built using the Camel framework, which is a framework for building large language models.
 
+[https://lablab.ai/event/fall-in-love-with-deepseek/withlouiscanbebetter/kaggle-baseline-generator-with-camelai](https://lablab.ai/event/fall-in-love-with-deepseek/withlouiscanbebetter/kaggle-baseline-generator-with-camelai)
 ## Installation
 
 To run the project, you will need to have the following installed:
